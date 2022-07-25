@@ -30,7 +30,7 @@ public class WaterService {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        String content = "5000";
+        String content = "2000";
         PubRequest pubRequest = new PubRequest()
                 .setProductKey("a1g0aXwTsx1")
                 .setTopicFullName("/a1g0aXwTsx1/ZApjdvupCbBZlbJYFILD/user/get")
