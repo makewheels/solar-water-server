@@ -42,10 +42,9 @@ public class WaterService {
         System.out.println(JSON.toJSONString(pubResponse));
     }
 
-
     public String connect(long timeLength) {
-        doAliyunConnect(timeLength + "");
         log.info("链接: " + timeLength);
+        doAliyunConnect(timeLength + "");
         return "response-" + System.currentTimeMillis();
     }
 
