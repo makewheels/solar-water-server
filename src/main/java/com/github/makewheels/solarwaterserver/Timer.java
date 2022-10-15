@@ -11,21 +11,21 @@ public class Timer {
     private WaterService waterService;
 
     //夏天定时上水1
-    @Scheduled(cron = "0 0 4 * * ?")
-    public void task1() {
-        waterService.connect(1000 * 60 * 10);
-    }
+//    @Scheduled(cron = "0 0 4 * * ?")
+//    public void task1() {
+//        waterService.connect(1000 * 60 * 10);
+//    }
 
     //夏天定时上水2
-    @Scheduled(cron = "0 2 12 * * ?")
-    public void task2() {
-        waterService.connect(1000 * 60 * 5);
-    }
+//    @Scheduled(cron = "0 2 12 * * ?")
+//    public void task2() {
+//        waterService.connect(1000 * 60 * 5);
+//    }
 
     //冬天防冻顶水
-//    @Scheduled(cron = "0 1 21-23,0-7 * * ?")
-//    public void task3() {
-//        waterService.connect(1000 * 10);
-//    }
+    @Scheduled(cron = "0 1 16-23,0-6 * * ?")
+    public void task3() {
+        waterService.connect(1000 * 10);
+    }
 
 }
