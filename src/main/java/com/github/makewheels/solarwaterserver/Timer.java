@@ -23,7 +23,7 @@ public class Timer {
 //    }
 
     //冬天防冻顶水
-    @Scheduled(cron = "0 3 22-23,0-6 * * ?")
+    @Scheduled(cron = "0 3,33 22-23,0-6 * * ?")
     public void task3() {
         waterService.connect(1000 * 10);
     }
