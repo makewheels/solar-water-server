@@ -19,8 +19,8 @@ public class WaterService {
             return aliyunClient;
         }
         Config config = new Config()
-                .setAccessKeyId(Base64.decodeStr("TFRBSTV0RDZIajRpNkQ4Q3h6Qmh1Zktr"))
-                .setAccessKeySecret(Base64.decodeStr("d2NaMXIwNVhpc2NZSER4cGo5ZklScjN4eFVIcEFX"));
+                .setAccessKeyId(System.getenv("solor_iot_AccessKeyID"))
+                .setAccessKeySecret(System.getenv("solor_iot_AccessKeySecret"));
         config.endpoint = "iot.cn-shanghai.aliyuncs.com";
         aliyunClient = new Client(config);
         return aliyunClient;
