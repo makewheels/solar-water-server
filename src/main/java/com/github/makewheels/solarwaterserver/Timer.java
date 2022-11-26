@@ -25,7 +25,7 @@ public class Timer {
     //冬天防冻顶水
     //每半小时上一次
 //    @Scheduled(cron = "0 3,33 21-23,0-7 * * ?")
-    @Scheduled(cron = "0 3,23,43 21-23,0-7 * * ?")
+//    @Scheduled(cron = "0 3,23,43 21-23,0-7 * * ?")
     public void task3() {
         waterService.connect(10 * 1000);
     }

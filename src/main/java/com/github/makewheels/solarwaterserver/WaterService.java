@@ -41,9 +41,9 @@ public class WaterService {
         log.info(JSON.toJSONString(pubResponse));
     }
 
-    public String connect(long timeLength) {
-        log.info("链接: " + timeLength);
-        doAliyunConnect(timeLength + "");
+    public String connect(long timeLengthInMillis) {
+        log.info("链接: " + timeLengthInMillis + " ms");
+        doAliyunConnect(timeLengthInMillis + "");
         return "response-" + System.currentTimeMillis();
     }
 
