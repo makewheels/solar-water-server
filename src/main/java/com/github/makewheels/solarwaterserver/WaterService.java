@@ -38,7 +38,7 @@ public class WaterService {
             throw new RuntimeException(e);
         }
 
-        System.out.println(JSON.toJSONString(pubResponse));
+        log.info(JSON.toJSONString(pubResponse));
     }
 
     public String connect(long timeLength) {
