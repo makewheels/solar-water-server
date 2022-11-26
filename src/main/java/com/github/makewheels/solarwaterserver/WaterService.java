@@ -38,6 +38,7 @@ public class WaterService {
             throw new RuntimeException(e);
         }
 
+        log.info("阿里云iot返回:");
         log.info(JSON.toJSONString(pubResponse));
     }
 
