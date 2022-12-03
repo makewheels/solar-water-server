@@ -27,7 +27,7 @@ public class Timer {
 //    @Scheduled(cron = "0 3,33 21-23,0-7 * * ?")
 //    @Scheduled(cron = "0 3,23,43 21-23,0-7 * * ?")
     public void task3() {
-        waterService.connect(10 * 1000);
+        waterService.connect(null, 10 * 1000);
     }
 
 }

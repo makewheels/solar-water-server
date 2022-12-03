@@ -13,6 +13,6 @@ public class WaterController {
 
     @GetMapping("connect")
     public String connect(@RequestParam long timeLength) {
-        return waterService.connect(timeLength);
+        return waterService.connect(null, timeLength);
     }
 }
