@@ -76,8 +76,8 @@ public class TableStoreService {
     }
 
     public static void main(String[] args) {
-        EasyRandom easyRandom = new EasyRandom();
-        IotConnectDTO iotConnectDTO = easyRandom.nextObject(IotConnectDTO.class);
-        new TableStoreService().insert("test", iotConnectDTO);
+//        EasyRandom easyRandom = new EasyRandom();
+//        IotConnectDTO iotConnectDTO = easyRandom.nextObject(IotConnectDTO.class);
+//        new TableStoreService().insert("test", iotConnectDTO);
     }
 }
