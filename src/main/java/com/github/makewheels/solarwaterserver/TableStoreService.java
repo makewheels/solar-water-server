@@ -7,7 +7,6 @@ import com.alicloud.openservices.tablestore.model.*;
 import com.github.makewheels.solarwaterserver.util.SnowFlakeIdUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.beanutils.PropertyUtils;
-import org.jeasy.random.EasyRandom;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
