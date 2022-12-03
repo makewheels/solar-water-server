@@ -66,7 +66,9 @@ public class WaterService {
 
         iotConnectDTO.setCreateTimestamp(System.currentTimeMillis());
 
-        new TableStoreService().insert("connect_log", iotConnectDTO);
+        String endPoint = "https://solor.cn-beijing.vpc.tablestore.aliyuncs.com";
+        TableStoreService tableStoreService = new TableStoreService(endPoint);
+        tableStoreService.insert("connect_log", iotConnectDTO);
         return "response-" + System.currentTimeMillis();
     }
 
