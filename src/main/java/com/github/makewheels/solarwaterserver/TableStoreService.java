@@ -50,14 +50,15 @@ public class TableStoreService {
 
         Map<String, Object> map = null;
         try {
-            map = PropertyUtils.describe(object);
             PropertyUtils.setProperty(object, "id", id);
             PropertyUtils.setProperty(object, "createTimestamp", System.currentTimeMillis());
             PropertyUtils.setProperty(object, "createTimeString", DateUtil.formatDateTime(new Date()));
+            map = PropertyUtils.describe(object);
         } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
             e.printStackTrace();
         }
-        log.info("插入TableStore: object = {}", JSON.toJSONString(object));
+        log.info("插入TableStore: object =");
+        log.info(JSON.toJSONString(object));
 
         //设置数据表名称
         RowPutChange rowPutChange = new RowPutChange(tableName, primaryKey);
@@ -65,9 +66,9 @@ public class TableStoreService {
         //加入属性列
         Set<String> keySet = map.keySet();
         for (String key : keySet) {
-            if (key.equals("id")) continue;
             ColumnValue columnValue = null;
             Object value = map.get(key);
+            //跳过空值
             if (value == null) continue;
             if (value instanceof String) {
                 columnValue = ColumnValue.fromString((String) value);
