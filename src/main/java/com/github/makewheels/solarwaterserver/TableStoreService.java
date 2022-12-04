@@ -66,6 +66,8 @@ public class TableStoreService {
         //加入属性列
         Set<String> keySet = map.keySet();
         for (String key : keySet) {
+            //跳过id，主键已经设置了
+            if (key.equals("id")) continue;
             ColumnValue columnValue = null;
             Object value = map.get(key);
             //跳过空值
