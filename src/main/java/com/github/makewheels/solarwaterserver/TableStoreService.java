@@ -51,15 +51,15 @@ public class TableStoreService {
         try {
             map = PropertyUtils.describe(object);
             PropertyUtils.setProperty(object, "id", id);
+            PropertyUtils.setProperty(object, "createTimestamp", System.currentTimeMillis());
+            PropertyUtils.setProperty(object, "createTimeString", DateUtil.formatDateTime(new Date()));
         } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
             e.printStackTrace();
         }
+        log.info("插入TableStore: object = {}", JSON.toJSONString(object));
+
         //设置数据表名称
         RowPutChange rowPutChange = new RowPutChange(tableName, primaryKey);
-        rowPutChange.addColumn(new Column("createTimestamp", ColumnValue.fromLong(
-                System.currentTimeMillis())));
-        rowPutChange.addColumn(new Column("createTimeString", ColumnValue.fromString(
-                DateUtil.formatDateTime(new Date()))));
 
         //加入属性列
         Set<String> keySet = map.keySet();
@@ -78,8 +78,6 @@ public class TableStoreService {
             }
             rowPutChange.addColumn(new Column(key, columnValue));
         }
-
-        log.info("插入TableStore: object = {}", JSON.toJSONString(object));
 
         PutRowRequest putRowRequest = new PutRowRequest(rowPutChange);
         PutRowResponse putRowResponse = tableStoreClient.putRow(putRowRequest);
