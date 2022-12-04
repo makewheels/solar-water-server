@@ -1,5 +1,6 @@
 package com.github.makewheels.solarwaterserver;
 
+import com.alibaba.fastjson.JSONObject;
 import lombok.Data;
 
 @Data
@@ -14,10 +15,10 @@ public class IotConnectDTO {
     private String iotRequestId;
     private String iotDeviceStatus;
     private Long iotDeviceStatusChangeTimestamp;
-    private String iotDeviceStatusJson;
+    private JSONObject iotDeviceStatusResponse;
 
     private String cfRequestId;
-    private String cfContextFunctionParamJson;
-    private String cfContextServiceJson;
+    private JSONObject cfContextFunctionParam;
+    private JSONObject cfContextService;
 
 }

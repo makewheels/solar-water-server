@@ -7,6 +7,7 @@ import com.aliyun.fc.runtime.Context;
 import com.aliyun.iot20180120.Client;
 import com.aliyun.iot20180120.models.*;
 import com.aliyun.teaopenapi.models.Config;
+import com.github.makewheels.solarwaterserver.utils.JSONUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -86,8 +87,8 @@ public class WaterService {
     public String connect(Context context, long timeLengthInMillis) {
         if (context != null) {
             iotConnectDTO.setCfRequestId(context.getRequestId());
-            iotConnectDTO.setCfContextServiceJson(JSON.toJSONString(context.getService()));
-            iotConnectDTO.setCfContextFunctionParamJson(JSON.toJSONString(context.getFunctionParam()));
+            iotConnectDTO.setCfContextService(JSONUtil.toJSONObject(context.getService()));
+            iotConnectDTO.setCfContextFunctionParam(JSONUtil.toJSONObject(context.getFunctionParam()));
         }
         iotConnectDTO.setConnectTimeInMillis(timeLengthInMillis);
 
@@ -96,8 +97,8 @@ public class WaterService {
         String deviceStatus = deviceStatusResponse.getBody().getData().getStatus();
         Long deviceTimestamp = deviceStatusResponse.getBody().getData().getTimestamp();
 
-        iotConnectDTO.setIotDeviceStatusJson(JSON.toJSONString(deviceStatusResponse));
         iotConnectDTO.setIotDeviceStatus(deviceStatus);
+        iotConnectDTO.setIotDeviceStatusResponse(JSONUtil.toJSONObject(deviceStatusResponse));
         iotConnectDTO.setIotDeviceStatusChangeTimestamp(deviceTimestamp);
 
         log.info("设备当前在线状态：{}", deviceStatus);
