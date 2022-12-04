@@ -12,6 +12,7 @@ public class IotConnectDTO {
     private String iotMessageId;
     private String iotRequestId;
     private String iotDeviceStatus;
+    private Long iotDeviceStatusChangeTimestamp;
     private String iotDeviceStatusJson;
 
     private String cfRequestId;

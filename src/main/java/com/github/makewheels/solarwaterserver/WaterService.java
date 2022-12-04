@@ -1,6 +1,7 @@
 package com.github.makewheels.solarwaterserver;
 
 import cn.hutool.core.codec.Base64;
+import cn.hutool.core.date.DateUtil;
 import com.alibaba.fastjson.JSON;
 import com.aliyun.fc.runtime.Context;
 import com.aliyun.iot20180120.Client;
@@ -8,6 +9,8 @@ import com.aliyun.iot20180120.models.*;
 import com.aliyun.teaopenapi.models.Config;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 
 @Service
 @Slf4j
@@ -91,17 +94,22 @@ public class WaterService {
         //获取设备在线状态
         GetDeviceStatusResponse deviceStatusResponse = getDeviceStatus();
         String deviceStatus = deviceStatusResponse.getBody().getData().getStatus();
+        Long deviceTimestamp = deviceStatusResponse.getBody().getData().getTimestamp();
 
         iotConnectDTO.setIotDeviceStatusJson(JSON.toJSONString(deviceStatusResponse));
         iotConnectDTO.setIotDeviceStatus(deviceStatus);
+        iotConnectDTO.setIotDeviceStatusChangeTimestamp(deviceTimestamp);
+
+        log.info("设备当前在线状态：{}", deviceStatus);
+        log.info("设备状态变更时间：{}", DateUtil.formatDateTime(new Date(deviceTimestamp)));
 
         //如果设备在线，才发送命令
         if (deviceStatus.equals("ONLINE")) {
-            log.info("链接: " + timeLengthInMillis + " ms");
+            log.info("设备在线，开始链接: " + timeLengthInMillis + " ms");
             doIotConnect(timeLengthInMillis + "");
+        } else {
+            log.info("设备离线，不发送指令");
         }
-
-        iotConnectDTO.setCreateTimestamp(System.currentTimeMillis());
 
         TableStoreService tableStoreService = new TableStoreService(tableStoreEndPoint);
         tableStoreService.insert(tableStoreTableName, iotConnectDTO);

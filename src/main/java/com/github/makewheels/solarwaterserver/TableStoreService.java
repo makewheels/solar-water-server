@@ -1,18 +1,22 @@
 package com.github.makewheels.solarwaterserver;
 
 import cn.hutool.core.codec.Base64;
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.util.IdUtil;
 import com.alibaba.fastjson.JSON;
 import com.alicloud.openservices.tablestore.SyncClient;
 import com.alicloud.openservices.tablestore.model.*;
-import com.github.makewheels.solarwaterserver.util.SnowFlakeIdUtil;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.beanutils.PropertyUtils;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Date;
 import java.util.Map;
 import java.util.Set;
 
 @Slf4j
+@NoArgsConstructor
 public class TableStoreService {
     private String endPoint = "https://instance-test.cn-beijing.ots.aliyuncs.com";
     private String accessKeyId = Base64.decodeStr("TFRBSTV0Q29zaUY0cFQ5WjhUYUx5QXIy");
@@ -20,9 +24,6 @@ public class TableStoreService {
             "WFR2eTVNTjB2TzNxUFBjbTF4V3U4dGhvYTR5eXYw");
     private String instanceName = "solor";
     private SyncClient tableStoreClient;
-
-    public TableStoreService() {
-    }
 
     public TableStoreService(String endPoint) {
         this.endPoint = endPoint;
@@ -35,8 +36,15 @@ public class TableStoreService {
                 .build();
     }
 
+    private String getId() {
+        //1599030718854172672
+        //C5CP2Z6O2PZ5
+        long snowflake = IdUtil.getSnowflakeNextId();
+        return Long.toString(snowflake, 36).toUpperCase();
+    }
+
     public void insert(String tableName, Object object) {
-        String id = SnowFlakeIdUtil.get();
+        String id = getId();
         PrimaryKey primaryKey = getPrimaryKey(id);
 
         Map<String, Object> map = null;
@@ -48,6 +56,11 @@ public class TableStoreService {
         }
         //设置数据表名称
         RowPutChange rowPutChange = new RowPutChange(tableName, primaryKey);
+        rowPutChange.addColumn(new Column("createTimestamp", ColumnValue.fromLong(
+                System.currentTimeMillis())));
+        rowPutChange.addColumn(new Column("createTimeString", ColumnValue.fromString(
+                DateUtil.formatDateTime(new Date()))));
+
         //加入属性列
         Set<String> keySet = map.keySet();
         for (String key : keySet) {
