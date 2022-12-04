@@ -6,16 +6,16 @@ import lombok.Data;
 public class IotConnectDTO {
     private String id;
     private Long createTimestamp;
+    private String createTimeString;
     private Long connectTimeInMillis;
 
     private String iotMessageId;
     private String iotRequestId;
-
-    private String iotRequestJson;
-    private String iotResponseJson;
+    private String iotDeviceStatus;
+    private String iotDeviceStatusJson;
 
     private String cfRequestId;
-    private String cfFunctionParamJson;
-    private String cfServiceJson;
+    private String cfContextFunctionParamJson;
+    private String cfContextServiceJson;
 
 }
