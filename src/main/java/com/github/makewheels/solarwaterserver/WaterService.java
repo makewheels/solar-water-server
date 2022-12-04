@@ -99,7 +99,9 @@ public class WaterService {
 
         iotConnectDTO.setIotDeviceStatus(deviceStatus);
         iotConnectDTO.setIotDeviceStatusResponse(JSONUtil.toJSONObject(deviceStatusResponse));
-        iotConnectDTO.setIotDeviceStatusChangeTimestamp(deviceTimestamp);
+        Date iotDeviceStatusChangeTime = new Date(deviceTimestamp);
+        iotConnectDTO.setIotDeviceStatusChangeTime(iotDeviceStatusChangeTime);
+        iotConnectDTO.setIotDeviceStatusChangeTimeString(DateUtil.formatDateTime(iotDeviceStatusChangeTime));
 
         log.info("设备当前在线状态：{}", deviceStatus);
         log.info("设备状态变更时间：{}", DateUtil.formatDateTime(new Date(deviceTimestamp)));

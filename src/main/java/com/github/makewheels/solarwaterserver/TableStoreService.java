@@ -51,7 +51,7 @@ public class TableStoreService {
         Map<String, Object> map = null;
         try {
             PropertyUtils.setProperty(object, "id", id);
-            PropertyUtils.setProperty(object, "createTimestamp", System.currentTimeMillis());
+            PropertyUtils.setProperty(object, "createTime", new Date());
             PropertyUtils.setProperty(object, "createTimeString", DateUtil.formatDateTime(new Date()));
             map = PropertyUtils.describe(object);
         } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
@@ -68,10 +68,11 @@ public class TableStoreService {
         for (String key : keySet) {
             //跳过id，主键已经设置了
             if (key.equals("id")) continue;
-            ColumnValue columnValue = null;
             Object value = map.get(key);
             //跳过空值
             if (value == null) continue;
+
+            ColumnValue columnValue = null;
             if (value instanceof String) {
                 columnValue = ColumnValue.fromString((String) value);
             } else if (value instanceof Long || value instanceof Integer) {
@@ -80,8 +81,10 @@ public class TableStoreService {
                 columnValue = ColumnValue.fromBoolean((Boolean) value);
             } else if (value instanceof Byte[]) {
                 columnValue = ColumnValue.fromBinary((byte[]) value);
+            } else if (value instanceof Date) {
+                columnValue = ColumnValue.fromLong(((Date) value).getTime());
             } else if (value instanceof JSONObject) {
-                columnValue = ColumnValue.fromString(JSON.toJSONString(value));
+                columnValue = ColumnValue.fromString(((JSONObject) value).toJSONString());
             }
             rowPutChange.addColumn(new Column(key, columnValue));
         }
