@@ -4,6 +4,7 @@ import cn.hutool.core.codec.Base64;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.alicloud.openservices.tablestore.SyncClient;
 import com.alicloud.openservices.tablestore.model.*;
 import lombok.NoArgsConstructor;
@@ -67,6 +68,7 @@ public class TableStoreService {
             if (key.equals("id")) continue;
             ColumnValue columnValue = null;
             Object value = map.get(key);
+            if (value == null) continue;
             if (value instanceof String) {
                 columnValue = ColumnValue.fromString((String) value);
             } else if (value instanceof Long || value instanceof Integer) {
@@ -75,6 +77,8 @@ public class TableStoreService {
                 columnValue = ColumnValue.fromBoolean((Boolean) value);
             } else if (value instanceof Byte[]) {
                 columnValue = ColumnValue.fromBinary((byte[]) value);
+            } else if (value instanceof JSONObject) {
+                columnValue = ColumnValue.fromString(JSON.toJSONString(value));
             }
             rowPutChange.addColumn(new Column(key, columnValue));
         }

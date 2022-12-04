@@ -7,6 +7,7 @@ public class IotConnectDTO {
     private String id;
     private Long createTimestamp;
     private String createTimeString;
+
     private Long connectTimeInMillis;
 
     private String iotMessageId;
