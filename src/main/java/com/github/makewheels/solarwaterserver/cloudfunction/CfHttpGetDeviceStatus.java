@@ -26,6 +26,7 @@ public class CfHttpGetDeviceStatus implements HttpRequestHandler {
         responseBody.put("deviceStatus", status);
         responseBody.put("timestamp", timestamp);
 
+        response.setContentType("application/json");
         PrintWriter writer = response.getWriter();
         writer.write(JSON.toJSONString(Result.ok(responseBody)));
         writer.close();
