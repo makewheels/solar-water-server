@@ -18,6 +18,5 @@ public class CfHttp implements HttpRequestHandler {
         long connectTimeLengthInMilliSeconds = Long.parseLong(
                 request.getParameter("connectTimeLengthInMilliSeconds"));
         new WaterService().connect(context, connectTimeLengthInMilliSeconds);
-
     }
 }
