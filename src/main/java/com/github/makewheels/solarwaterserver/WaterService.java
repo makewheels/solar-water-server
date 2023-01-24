@@ -49,7 +49,7 @@ public class WaterService {
      * UNACTIVE：设备未激活。
      * DISABLE：设备已禁用。
      */
-    private GetDeviceStatusResponse getDeviceStatus() {
+    public GetDeviceStatusResponse getDeviceStatus() {
         GetDeviceStatusRequest request = new GetDeviceStatusRequest();
         request.setProductKey(productKey);
         request.setDeviceName(deviceName);
