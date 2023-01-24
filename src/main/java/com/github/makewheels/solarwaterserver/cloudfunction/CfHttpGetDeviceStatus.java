@@ -1,5 +1,6 @@
 package com.github.makewheels.solarwaterserver.cloudfunction;
 
+import cn.hutool.core.date.DateUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.aliyun.fc.runtime.Context;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 
 public class CfHttpGetDeviceStatus implements HttpRequestHandler {
     @Override
@@ -25,6 +27,7 @@ public class CfHttpGetDeviceStatus implements HttpRequestHandler {
         JSONObject responseBody = new JSONObject();
         responseBody.put("deviceStatus", status);
         responseBody.put("timestamp", timestamp);
+        responseBody.put("timestampString", DateUtil.formatDateTime(new Date(timestamp)));
 
         response.setContentType("application/json");
         PrintWriter writer = response.getWriter();
