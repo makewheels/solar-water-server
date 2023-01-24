@@ -7,7 +7,7 @@ import com.github.makewheels.solarwaterserver.WaterService;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public class CfRun implements StreamRequestHandler {
+public class CfConnect implements StreamRequestHandler {
     @Override
     public void handleRequest(InputStream input, OutputStream output, Context context) {
         long connectTimeLengthInSeconds = Long.parseLong(

@@ -12,7 +12,7 @@ public class WaterController {
     private WaterService waterService;
 
     @GetMapping("connect")
-    public String connect(@RequestParam long timeLength) {
-        return waterService.connect(null, timeLength);
+    public String connect(@RequestParam long connectTimeLengthInSeconds) {
+        return waterService.connect(null, connectTimeLengthInSeconds);
     }
 }
